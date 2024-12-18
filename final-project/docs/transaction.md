@@ -118,3 +118,40 @@
 }
 ```
 
+## Get All Transaction API
+
+**Endpoint** : GET `/api/transaction/`
+
+**Headers** :
+
+- Authorization : Bearer token
+
+**Response Body Success** :
+
+```json
+[{
+  "id": 1,
+  "user_id": 1,
+  "transaction_type_id": 1,
+  "description": "Pembayaran listrik bulan Desember",
+  "amount": 150000,
+  "date": "0001-01-01T00:00:00Z"
+},
+{
+  "id": 1,
+  "user_id": 2,
+  "transaction_type_id": 1,
+  "description": "Pembayaran pulsa",
+  "amount": 20000,
+  "date": "0001-01-01T00:00:00Z"
+}
+]
+```
+
+**Response Body Error** :
+
+```json
+{
+  "message": "[]"
+}
+```
