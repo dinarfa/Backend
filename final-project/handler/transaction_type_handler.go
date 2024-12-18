@@ -20,13 +20,13 @@ func NewTransactionTypeHandler(service services.TransactionTypeServicesInterface
 func (h *TransactionTypeHandler) CreateTransactionType(c *gin.Context) {
 	var transactionType models.TransactionType
 	if err := c.ShouldBindJSON(&transactionType); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
 
 	createdTransactionType, err := h.service.CreateTransactionType(transactionType)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}
 
@@ -37,7 +37,7 @@ func (h *TransactionTypeHandler) CreateTransactionType(c *gin.Context) {
 func (h *TransactionTypeHandler) GetAllTransactionTypes(c *gin.Context) {
 	transactionTypes, err := h.service.GetAllTransactionTypes()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}
 

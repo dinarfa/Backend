@@ -38,13 +38,13 @@ func NewTransactionHandler(serv services.TransactionServiceInterface) Transactio
 func (u *transactionHandler) Create(c *gin.Context){
 	var transaction models.Transaction
 	if err := c.ShouldBindJSON(&transaction); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Mohon input dengan benar"}) // klo kosong ya eror
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Mohon input dengan benar"}) // klo kosong ya eror
 		return
 	}
 
 	_, err := u.serv.Create(transaction)
 	if err != nil {
-		c.JSON(http.StatusConflict, gin.H{"error": "Mohon Input dengan benar"})
+		c.JSON(http.StatusConflict, gin.H{"message": "Mohon Input dengan benar"})
 		return
 	}
 
@@ -60,7 +60,7 @@ func (u *transactionHandler) GetById(c *gin.Context) {
     transactionID, err := strconv.ParseUint(transactionIDStr, 10, 32)
     if err != nil {
         c.JSON(http.StatusBadRequest, gin.H{
-            "error": "ID harus berupa angka positif",
+            "message": "ID harus berupa angka positif",
         })
         return
     }
@@ -68,7 +68,7 @@ func (u *transactionHandler) GetById(c *gin.Context) {
     // Panggil service dengan ID yang sudah dikonversi
     transaction, err := u.serv.GetTransactionById(uint(transactionID))
     if err != nil {
-        c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+        c.JSON(http.StatusNotFound, gin.H{"message": err.Error()})
         return
     }
 
@@ -88,7 +88,7 @@ func (u *transactionHandler) Update(c *gin.Context) {
 	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "ID harus berupa angka positif",
+			"message": "ID harus berupa angka positif",
 		})
 		return
 	}
@@ -96,7 +96,7 @@ func (u *transactionHandler) Update(c *gin.Context) {
 	// Bind data JSON ke updatedTransaction
 	if err := c.ShouldBindJSON(&updatedTransaction); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Mohon Input dengan benar",
+			"message": "Mohon Input dengan benar",
 		})
 		return
 	}
@@ -105,11 +105,10 @@ func (u *transactionHandler) Update(c *gin.Context) {
 	err = u.serv.Update(uint(id), updatedTransaction)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
+			"message": err.Error(),
 		})
 		return
 	}
-
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Transaksi Berhasil di-update",
 	})
@@ -153,7 +152,7 @@ func (u *transactionHandler) Delete(c *gin.Context) {
 	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "ID harus berupa angka positif",
+			"message": "ID harus berupa angka positif",
 		})
 		return
 	}
@@ -163,7 +162,7 @@ func (u *transactionHandler) Delete(c *gin.Context) {
 	if err != nil {
 		// Jika transaksi tidak ditemukan, kirimkan pesan error dengan status Not Found
 		c.JSON(http.StatusNotFound, gin.H{
-			"error": "Transaksi dengan ID tersebut tidak ditemukan",
+			"message": "Transaksi dengan ID tersebut tidak ditemukan",
 		})
 		return
 	}
@@ -172,7 +171,7 @@ func (u *transactionHandler) Delete(c *gin.Context) {
 	err = u.serv.Delete(uint(id))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": "Gagal menghapus Transaksi. Silakan coba lagi.",
+			"message": "Gagal menghapus Transaksi. Silakan coba lagi.",
 		})
 		return
 	}
@@ -190,7 +189,7 @@ func (u *transactionHandler) GetAll(c *gin.Context) {
 	transactions, err := u.serv.GetAll()
 	// klo ada eror, kirim pesan baru stop
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}
 

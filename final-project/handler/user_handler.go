@@ -34,14 +34,14 @@ func (u *userHandler) GetBalance(c *gin.Context) {
 	// Konversi ID dari string ke uint
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid ID format"})
 		return
 	}
 
 	// Memanggil service untuk mendapatkan saldo
 	balance, err := u.serv.GetBalance(uint(id))
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		c.JSON(http.StatusNotFound, gin.H{"message": err.Error()})
 		return
 	}
 
@@ -54,18 +54,18 @@ func (u *userHandler) Update(c *gin.Context) {
 	var updatedUser models.User
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid ID format"})
 		return
 	}
 
 	if err := c.ShouldBindJSON(&updatedUser); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Mohon input dengan benar"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Mohon input dengan benar"})
 		return
 	}
 
 	err = u.serv.Update(uint(id), updatedUser)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "User berhasil di-update"})
@@ -75,13 +75,13 @@ func (u *userHandler) Update(c *gin.Context) {
 func (u *userHandler) Delete(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid ID format"})
 		return
 	}
 
 	err = u.serv.Delete(uint(id))
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal Menghapus user"})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Gagal Menghapus user"})
 		return
 	}
 	
@@ -92,7 +92,7 @@ func (u *userHandler) Delete(c *gin.Context) {
 func (u *userHandler) GetAllUser(c *gin.Context) {
 	users, err := u.serv.GetAll()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}
 
@@ -104,13 +104,13 @@ func (u *userHandler) GetAllUser(c *gin.Context) {
 func (u *userHandler) GetProfile(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format"})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid ID format"})
 		return
 	}
 
 	user, err := u.serv.GetUserById(uint(id))
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		c.JSON(http.StatusNotFound, gin.H{"message": err.Error()})
 		return
 	}
 	userResp := dto.NewUserDetail(user)
@@ -122,7 +122,7 @@ func (u *userHandler) Login(c *gin.Context) {
     var user dto.UserLogin
     // Ambil data JSON dari request body dan isi ke dalam struct user
     if err := c.ShouldBindJSON(&user); err != nil {
-        c.JSON(http.StatusBadRequest, gin.H{"error": "Format request tidak valid"})
+        c.JSON(http.StatusBadRequest, gin.H{"message": "Format request tidak valid"})
         return
     }
 
@@ -135,7 +135,7 @@ func (u *userHandler) Login(c *gin.Context) {
     // Panggil service Login dengan satu parameter (userModel)
     token, err := u.serv.Login(userModel) // Pastikan Login di service menerima models.User
     if err != nil {
-        c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+        c.JSON(http.StatusUnauthorized, gin.H{"message": err.Error()})
         return
     }
 
