@@ -5,14 +5,8 @@ import (
 	"final-project/dto"
 	"final-project/models"
 	"strconv"
-
-	// "strconv"
-
-	// "final-project/repositories"
 	"final-project/services"
-	// "log"
 
-	// "fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

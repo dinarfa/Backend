@@ -2,7 +2,7 @@
 
 ## Register User API -->
 
-**Endpoint** : POST `/api/users/register`
+**Endpoint** : POST `http:/localhost:8080/users/register`
 
 **Request Body** :
 
@@ -34,7 +34,7 @@
 
 ## Login User API
 
-**Endpoint** : POST `/api/users/login`
+**Endpoint** : POST `http:/localhost:8080/users/login`
 
 **Request Body** :
 
@@ -65,7 +65,7 @@
 
 ## Get User By Id API
 
-**Endpoint** : GET `/api/users/{id}`
+**Endpoint** : GET `http:/localhost:8080/users/{id}`
 
 **Headers** :
 
@@ -90,7 +90,7 @@
 ```
 ## Get balance By Id API
 
-**Endpoint** : GET `/api/users/{id}/balance`
+**Endpoint** : GET `http:/localhost:8080/users/{id}/balance`
 
 **Headers** :
 
@@ -113,7 +113,7 @@
 ```
 ## Delete user API
 
-**Endpoint** : DELETE `/api/users/{id}`
+**Endpoint** : DELETE `http:/localhost:8080/users/{id}`
 
 **Headers** :
 
@@ -137,7 +137,7 @@
 
 ## Update User API -->
 
-**Endpoint** : PUT `/api/users/{id}`
+**Endpoint** : PUT `http:/localhost:8080/users/{id}`
 
 **Request Body** :
 

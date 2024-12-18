@@ -2,7 +2,7 @@
 
 ## Create Transaction API -->
 
-**Endpoint** : POST `/api/transactions/`
+**Endpoint** : POST `http:/localhost:8080/transactions/`
 
 **Request Body** :
 
@@ -33,7 +33,7 @@
 
 ## Update Transaction API
 
-**Endpoint** : PUT `/api/transactions/id`
+**Endpoint** : PUT `http:/localhost:8080/transactions/id`
 
 **Request Body** :
 
@@ -65,7 +65,7 @@
 
 ## Get Transaction By Id API
 
-**Endpoint** : GET `/api/transaction/{id}`
+**Endpoint** : GET `http:/localhost:8080/transactions/{id}`
 
 **Headers** :
 
@@ -85,7 +85,6 @@
     
 }
 ```
-
 **Response Body Error** :
 
 ```json
@@ -95,7 +94,7 @@
 ```
 ## Delete Transaction API
 
-**Endpoint** : DELETE `/api/transaction/{id}`
+**Endpoint** : DELETE `http:/localhost:8080/transactions/{id}`
 
 **Headers** :
 
@@ -120,7 +119,7 @@
 
 ## Get All Transaction API
 
-**Endpoint** : GET `/api/transaction/`
+**Endpoint** : GET `http:/localhost:8080/transactions/`
 
 **Headers** :
 
@@ -153,5 +152,65 @@
 ```json
 {
   "message": "[]"
+}
+```
+
+## Get All Transaction Types API
+
+**Endpoint** : GET `http:/localhost:8080/transactions_types/`
+
+**Headers** :
+
+- Authorization : Bearer token
+
+**Response Body Success** :
+
+```json
+[{
+  "transaction_type_id": 1,
+  "name": "Pemasukan"
+    
+},
+{
+  "transaction_type_id": 2,
+  "name": "Pengeluaran"
+    
+}
+]
+```
+**Response Body Error** :
+
+```json
+{
+  "message": "pesan eror"
+}
+```
+
+## Create Transaction API -->
+
+**Endpoint** : POST `http:/localhost:8080/transactions_types/`
+
+**Request Body** :
+
+```json
+{
+  "name": "Pemasukan"
+}
+```
+
+**Response Body Success** :
+
+```json
+{
+  "transaction_type_id": 1,
+  "name": "Pemasukan"
+}
+```
+
+**Response Body Error** :
+
+```json
+{
+  "message": "pesan eror"
 }
 ```
